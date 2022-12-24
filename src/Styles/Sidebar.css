@@ -9,7 +9,7 @@
   transition: all 300ms ease;
   background: whitesmoke;
 }
-div span {
+span .span {
   color: var(--main-color);
 }
 div.side-head {
@@ -18,4 +18,13 @@ div.side-head {
   align-items: center;
   gap: 1rem;
   background: whitesmoke;
+}
+.side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.active {
+  background: var(--main-color);
+  margin-left: 0;
 }

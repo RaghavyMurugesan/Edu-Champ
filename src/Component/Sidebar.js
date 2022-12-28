@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../Styles/Sidebar.css";
 import { Box, Typography, Avatar, Divider } from "@mui/material";
 import SchoolIcon from "@mui/icons-material/School";
@@ -9,6 +10,7 @@ import { sidebarData } from "../data";
 
 function Sidebar() {
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const navigate = useNavigate();
   return (
     <div className="side">
       <Box>
@@ -19,27 +21,29 @@ function Sidebar() {
           </h3>
         </div>
         <Box p={2} role="presentation" className="side-head">
-          <Avatar>
-            <PersonIcon sx={{ color: "#50c878" }} />
+          <Avatar sx={{ width: 56, height: 56 }}>
+            <PersonIcon sx={{ color: "#00b99c", width: 36, height: 36 }} />
           </Avatar>
-          <Typography component="h6" sx={{ color: "#50c878" }}>
-            Admin Name
-          </Typography>
+          <Typography component="h6">Admin Name</Typography>
         </Box>
       </Box>
       <Divider />
       <List
         sx={{
           "& .MuiListItemButton-root:hover": {
-            borderRadius: "0.7rem",
-            bgcolor: "#50c878",
+            borderLeft: "6px solid  #008369 ",
+            borderRadius: "0 0.7rem 0.7rem 0",
+            bgcolor: "#00b99c",
             "&, & .MuiListItemIcon-root": {
               color: "white",
             },
           },
-          "&& .Mui-selected": {
-            borderRadius: "0.7rem",
-            backgroundColor: "#50c878",
+          "& .active.Mui-selected,& .active.Mui-selected:hover ": {
+            borderRadius: "0 0.7rem 0.7rem 0",
+            borderLeft: "6px solid green",
+            bgcolor: "#50c878",
+            left: "10px",
+            // transition: "all 1s ease",
             "&, & .MuiListItemIcon-root": {
               color: "white",
             },
@@ -47,7 +51,11 @@ function Sidebar() {
         }}>
         {sidebarData.map((item, index) => {
           return (
-            <ListItemButton selected={selectedIndex === index} key={index} onClick={() => setSelectedIndex(index)}>
+            <ListItemButton
+              selected={selectedIndex === index}
+              key={index}
+              onClick={() => setSelectedIndex(index)}
+              className="active">
               <ListItemIcon>
                 <item.icon />
               </ListItemIcon>

@@ -7,20 +7,19 @@
   position: relative;
   padding-top: 4rem;
   transition: all 300ms ease;
-  background: whitesmoke;
 }
-span .span {
-  color: var(--main-color);
+.span {
+  color: #50c878;
 }
 div.side-head {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-  background: whitesmoke;
 }
 .side {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: var(--main-color);
 }

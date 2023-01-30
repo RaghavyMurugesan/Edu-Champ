@@ -1,78 +1,84 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import "../Styles/Sidebar.css";
-import { Box, Typography, Avatar, Divider } from "@mui/material";
-import SchoolIcon from "@mui/icons-material/School";
-import { List, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
-import PersonIcon from "@mui/icons-material/Person";
-import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import { Grid, Box, Typography, Divider } from "@mui/material";
+import { List, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import { sidebarData } from "../data";
-
-function Sidebar() {
+import "../Styles/Sidebar.css";
+import SchoolIcon from "@mui/icons-material/School";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+export const Sidebar = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const navigate = useNavigate();
   return (
-    <div className="side">
-      <Box>
-        <div className="Sidebar">
-          <SchoolIcon fontSize="large" sx={{ color: "#50c878" }} />
-          <h3>
-            Edu<span className="span">C</span>hamp
-          </h3>
-        </div>
-        <Box p={2} role="presentation" className="side-head">
-          <Avatar sx={{ width: 56, height: 56 }}>
-            <PersonIcon sx={{ color: "#00b99c", width: 36, height: 36 }} />
-          </Avatar>
-          <Typography component="h6">Admin Name</Typography>
-        </Box>
+    <Grid
+      item
+      sx={{
+        overflowX: "hidden",
+        height: "100%",
+        minWidth: 70,
+        width: 70,
+        bgcolor: "whitesmoke",
+        color: "#808080",
+        borderRadius: "2rem",
+        transition: "all 0.5s ease",
+        "&:hover": {
+          minWidth: 220,
+        },
+      }}>
+      <Box
+        sx={{
+          display: "inline-flex",
+          flexDirection: "row",
+          flexWrap: "nowrap",
+          alignItems: "center",
+          justifyContent: "flex-start",
+          padding: "0 16px",
+        }}>
+        {" "}
+        <SchoolIcon fontSize="large" sx={{ color: "#50c878" }} />
+        <Typography color="#444" variant="h6" padding={3}>
+          Edu<span className="span">C</span>hamp
+        </Typography>
       </Box>
       <Divider />
       <List
         sx={{
-          "& .MuiListItemButton-root:hover": {
-            borderLeft: "6px solid  #008369 ",
-            borderRadius: "0 0.7rem 0.7rem 0",
-            bgcolor: "#00b99c",
+          " & .MuiListItemButton-root:hover": {
+            bgcolor: "#50c878",
             "&, & .MuiListItemIcon-root": {
               color: "white",
             },
           },
           "& .active.Mui-selected,& .active.Mui-selected:hover ": {
-            borderRadius: "0 0.7rem 0.7rem 0",
-            borderLeft: "6px solid green",
-            bgcolor: "#50c878",
-            left: "10px",
-            // transition: "all 1s ease",
+            bgcolor: "whitesmoke",
+            transition: "all .5s ease",
             "&, & .MuiListItemIcon-root": {
-              color: "white",
+              color: "#50c878",
             },
           },
         }}>
-        {sidebarData.map((item, index) => {
-          return (
+        {sidebarData.map((item, index) => (
+          <ListItem key={index} sx={{ whiteSpace: "nowrap", paddingX: 0 }}>
             <ListItemButton
+              className="active"
               selected={selectedIndex === index}
-              key={index}
               onClick={() => setSelectedIndex(index)}
-              className="active">
-              <ListItemIcon>
+              sx={{ paddingLeft: "24px" }}>
+              <ListItemIcon fontSize="large">
                 <item.icon />
               </ListItemIcon>
               <ListItemText primary={item.text} />
             </ListItemButton>
-          );
-        })}
+          </ListItem>
+        ))}
+        <Divider />
+        <ListItem sx={{ whiteSpace: "nowrap", paddingRight: 0, paddingLeft: 1 }}>
+          <ListItemButton>
+            <ListItemIcon>
+              <ExitToAppIcon />
+            </ListItemIcon>
+            <ListItemText primary="Log-Out" />
+          </ListItemButton>
+        </ListItem>
       </List>
-      <Divider />
-      <ListItemButton>
-        <ListItemIcon>
-          <ExitToAppIcon />
-        </ListItemIcon>
-        <ListItemText primary="Log-Out" />
-      </ListItemButton>
-    </div>
+    </Grid>
   );
-}
-
-export default Sidebar;
+};

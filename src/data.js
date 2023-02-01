@@ -5,11 +5,11 @@ import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import Groups3Icon from "@mui/icons-material/Groups3";
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 import BoltIcon from "@mui/icons-material/Bolt";
-import Diversity3TwoToneIcon from "@mui/icons-material/Diversity3TwoTone";
-import PersonAddAlt1TwoToneIcon from "@mui/icons-material/PersonAddAlt1TwoTone";
-import ReduceCapacityTwoToneIcon from "@mui/icons-material/ReduceCapacityTwoTone";
-import GroupAddTwoToneIcon from "@mui/icons-material/GroupAddTwoTone";
-import InsightsTwoToneIcon from "@mui/icons-material/InsightsTwoTone";
+import Diversity3 from "@mui/icons-material/Diversity3";
+import PersonAddAlt1 from "@mui/icons-material/PersonAddAlt1";
+import ReduceCapacity from "@mui/icons-material/ReduceCapacity";
+import GroupAdd from "@mui/icons-material/GroupAdd";
+import Insights from "@mui/icons-material/Insights";
 export const sidebarData = [
   {
     icon: HomeIcon,
@@ -50,27 +50,27 @@ export const sidebarData = [
 
 export const quick = [
   {
-    icon: Diversity3TwoToneIcon,
+    icon: Diversity3,
     text: "Student",
     path: "/allstudent",
   },
   {
-    icon: PersonAddAlt1TwoToneIcon,
+    icon: PersonAddAlt1,
     text: "Add Student",
     path: "/addstudent",
   },
   {
-    icon: ReduceCapacityTwoToneIcon,
+    icon: ReduceCapacity,
     text: "Teachers",
     path: "/allteacher",
   },
   {
-    icon: GroupAddTwoToneIcon,
+    icon: GroupAdd,
     text: "Add Teachers",
     path: "/addteacher",
   },
   {
-    icon: InsightsTwoToneIcon,
+    icon: Insights,
     text: "Dashboard",
     path: "/allteacher",
   },

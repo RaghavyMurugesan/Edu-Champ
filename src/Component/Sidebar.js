@@ -1,12 +1,16 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Grid, Box, Typography, Divider } from "@mui/material";
 import { List, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import { sidebarData } from "../data";
 import "../Styles/Sidebar.css";
 import SchoolIcon from "@mui/icons-material/School";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-export const Sidebar = () => {
+export const Sidebar = (index, item) => {
+  const navigate = useNavigate();
+
   const [selectedIndex, setSelectedIndex] = useState(0);
+
   return (
     <Grid
       item
@@ -60,7 +64,10 @@ export const Sidebar = () => {
             <ListItemButton
               className="active"
               selected={selectedIndex === index}
-              onClick={() => setSelectedIndex(index)}
+              onClick={() => {
+                setSelectedIndex(index);
+                navigate(item.path);
+              }}
               sx={{ paddingLeft: "24px" }}>
               <ListItemIcon fontSize="large">
                 <item.icon />

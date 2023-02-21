@@ -4,12 +4,17 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  scroll-padding-top: 2rem;
+  scroll-behavior: smooth;
+  list-style: none;
+  text-decoration: none;
   font-family: "Poppins", sans-serif;
 }
 
 :root {
   --main-color: #50c878;
   /* --secondary-color: #00b99c; */
+  /* --second-color: "fushcia" */
   --secondary-color: #c850a0;
   --analogous: #64c850;
   --analogous2: #50c8b4;
@@ -18,4 +23,14 @@
   --gradient: linear-gradient(to right top, #50c878, #3ec583, #2cc18c, #00b99c);
   --glass: rgba(255, 255, 255, 0.225);
   --box-shadow: 0px 10px 60px rgb(0 0 0 /8%);
+}
+html::-webkit-scrollbar {
+  width: 0.5rem;
+}
+html::-webkit-scrollbar-track {
+  background: transparent;
+}
+html::-webkit-scrollbar-thumb {
+  background: var(--main-color);
+  border-radius: 5rem;
 }

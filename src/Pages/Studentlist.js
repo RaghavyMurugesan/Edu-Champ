@@ -1,13 +1,19 @@
 import React from "react";
 import { TableContainer, Table, TableHead, TableBody, TableRow, TableCell } from "@mui/material";
-import { Stack, TextField, Paper, Avatar, IconButton, InputAdornment, MenuItem, Typography } from "@mui/material";
+import { Stack, TextField, Avatar, IconButton, InputAdornment, MenuItem, Typography } from "@mui/material";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SearchIcon from "@mui/icons-material/Search";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Switch from "@mui/material/Switch";
+import TablePagination from "@mui/material/TablePagination";
 
 function Studentlist({ student, setStudent }) {
+  const [dense, setDense] = React.useState(false);
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const course = [
     {
       value: "HTML",
@@ -22,12 +28,23 @@ function Studentlist({ student, setStudent }) {
       label: "JavaScript",
     },
   ];
+  const handleChangeDense = (event) => {
+    setDense(event.target.checked);
+  };
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
   return (
-    <Paper sx={{ overflow: "auto", padding: "2rem" }}>
+    <>
+      {/* <Paper sx={{ overflow: "auto", padding: "1rem" }}></Paper> */}
       <Typography color="#50c878" variant="h4">
         Student List
       </Typography>
-      <Stack direction="row" justifyContent="space-evenly" alignItems="center" padding={1}>
+      <Stack direction="row" justifyContent="space-between" alignItems="center" padding={1}>
         <TextField
           id="input-with-icon-textfield"
           size="small"
@@ -47,8 +64,8 @@ function Studentlist({ student, setStudent }) {
           id="Course"
           placeholder="Course"
           select
-          variant="standard"
-          sx={{ width: "200px" }}
+          variant="outlined"
+          sx={{ width: "150px" }}
           size="small"
           InputProps={{
             startAdornment: (
@@ -65,9 +82,9 @@ function Studentlist({ student, setStudent }) {
         </TextField>
       </Stack>
       <TableContainer>
-        <Table sx={{ minWidth: 650 }} stickyHeader>
+        <Table sx={{ minWidth: 650, height: "max-content" }} size={dense ? "small" : "medium"} stickyHeader>
           <TableHead>
-            <TableRow>
+            <TableRow hover>
               <TableCell>Profile</TableCell>
               <TableCell>Name</TableCell>
               <TableCell>Course</TableCell>
@@ -78,7 +95,7 @@ function Studentlist({ student, setStudent }) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {student.map((student, index) => (
+            {student.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((student, index) => (
               <TableRow>
                 <TableCell>
                   {" "}
@@ -105,7 +122,17 @@ function Studentlist({ student, setStudent }) {
           </TableBody>
         </Table>
       </TableContainer>
-    </Paper>
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 25]}
+        component="div"
+        count={student.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
+      <FormControlLabel control={<Switch checked={dense} onChange={handleChangeDense} />} label="Dense padding" />
+    </>
   );
 }
 

@@ -1,6 +1,6 @@
 import React from "react";
-import { Grid, Typography, Button, Card, CardMedia } from "@mui/material";
-import { SvgBlob } from "react-svg-blob";
+import { Grid, Typography, Button } from "@mui/material";
+
 import svg1 from "../images/svg1.svg";
 function Home() {
   return (

@@ -37,7 +37,7 @@ function Home() {
             fill="url(#fill)"></path>
           <img src={svg1} alt="student" width="inherit" />
         </svg> */}
-        <svg width="auto" height="350" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <svg width="100%" height="350" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
           <image href={svg1} width="350" height="350" />
         </svg>
       </Grid>

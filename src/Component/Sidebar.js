@@ -16,7 +16,7 @@ export const Sidebar = (index, item) => {
       item
       sx={{
         overflowX: "hidden",
-        height: "100%",
+        height: "100vh",
         minWidth: 70,
         width: 70,
         bgcolor: "whitesmoke",

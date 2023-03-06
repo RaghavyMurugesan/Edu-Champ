@@ -85,6 +85,13 @@ export let studentList = [
     rank: 1,
     course: "HTML",
     id: "1",
+    address: {
+      street: "Majestic St Suryanarayana Puram",
+      city: "Kakinada",
+      region: "Andhra Pradesh",
+      zipCode: 533001,
+      country: "India",
+    },
   },
   {
     name: "Kabir Singh",

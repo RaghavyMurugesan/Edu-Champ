@@ -9,6 +9,9 @@ import Addstudent from "./Pages/Addstudent";
 import Addteacher from "./Pages/Addteacher";
 import Studentlist from "./Pages/Studentlist";
 import Teacherlist from "./Pages/Teacherlist";
+import EditStudent from "./Pages/EditStudent";
+import StudentDetails from "./Pages/StudentDetails";
+
 import { useState } from "react";
 import { createTheme, colors, ThemeProvider, Grid } from "@mui/material";
 
@@ -25,7 +28,7 @@ function App() {
       secondary: "#ED5E93",
       glass: "rgba(255, 255, 255, 0.225)",
       shadow: "0px 10px 60px rgb(0 0 0 /8%)",
-      gradient: "linear-gradient(to right top, #50c878, #3ec583, #2cc18c, #00b99c)",
+      gradient: "linear-gradient(to right top, #50c878, #00bb91, #00aca3, #009caa, #008aa6)",
     },
     palette: {
       primary: {
@@ -52,7 +55,6 @@ function App() {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            bgcolor: "lightgreen",
           }}>
           <Grid
             container
@@ -63,7 +65,7 @@ function App() {
               width: "97%",
               borderRadius: "2rem",
               overflow: "auto",
-              bgcolor: theme.status.glass,
+              backgroundImage: theme.status.glass,
               boxShadow: theme.status.shadow,
             }}>
             {" "}
@@ -76,14 +78,19 @@ function App() {
                 p: 3,
                 bgcolor: theme.status.glass,
                 width: "100%",
-                height: "inherit",
+                height: "100vh",
               }}>
               <Routes>
                 <Route path="/" exact element={<Home />} />
-                <Route path="/dashboard" exact element={<MainDash />} />
+                <Route path="/dashboard" exact element={<MainDash student={student} teacher={teacher} />} />
                 <Route path="/quickaccess" exact element={<Quick />} />
                 <Route path="/allstudent" exact element={<Studentlist student={student} setStudent={setStudent} />} />
-                <Route path="/addstudent" exact element={<Addstudent />} />
+                <Route
+                  path="/allstudent/:index"
+                  element={<StudentDetails student={student} setStudent={setStudent} />}
+                />
+                <Route path="/edit/:index" element={<EditStudent student={student} setStudent={setStudent} />} />
+                <Route path="/addstudent" exact element={<Addstudent student={student} setStudent={setStudent} />} />
                 <Route path="/allteacher" exact element={<Teacherlist teacher={teacher} setTeacher={setTeacher} />} />
                 <Route path="/addteacher" exact element={<Addteacher />} />
                 <Route element={<Home />} />

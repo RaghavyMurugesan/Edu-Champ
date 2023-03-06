@@ -9,11 +9,14 @@ import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import TablePagination from "@mui/material/TablePagination";
+import { useNavigate } from "react-router-dom";
+import { FormControl } from "@mui/material";
 
 function Studentlist({ student, setStudent }) {
-  const [dense, setDense] = React.useState(false);
+  const navigate = useNavigate();
+  const [dense, setDense] = React.useState(true);
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const course = [
     {
       value: "HTML",
@@ -38,6 +41,13 @@ function Studentlist({ student, setStudent }) {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+
+  let handleRemove = (index) => {
+    let newList = [...student];
+    newList.splice(index, 1);
+    console.log(index);
+    setStudent(newList);
+  };
   return (
     <>
       {/* <Paper sx={{ overflow: "auto", padding: "1rem" }}></Paper> */}
@@ -45,42 +55,49 @@ function Studentlist({ student, setStudent }) {
         Student List
       </Typography>
       <Stack direction="row" justifyContent="space-between" alignItems="center" padding={1}>
-        <TextField
-          id="input-with-icon-textfield"
-          size="small"
-          color="success"
-          placeholder="Search..."
-          sx={{ width: "250px" }}
-          variant="standard"
-          InputProps={{
-            endAdornment: (
-              <InputAdornment>
-                <SearchIcon sx={{ color: "#50c878" }} />
-              </InputAdornment>
-            ),
-          }}
-        />
-        <TextField
-          id="Course"
-          placeholder="Course"
-          select
-          variant="outlined"
-          sx={{ width: "150px" }}
-          size="small"
-          InputProps={{
-            startAdornment: (
-              <InputAdornment>
-                <FilterAltIcon sx={{ color: "#50c878" }} />
-              </InputAdornment>
-            ),
-          }}>
-          {course.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
+        <FormControl>
+          <TextField
+            id="input-with-icon-textfield"
+            size="small"
+            color="success"
+            placeholder="Search..."
+            sx={{ width: "250px" }}
+            variant="standard"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment>
+                  <SearchIcon sx={{ color: "#50c878" }} />
+                </InputAdornment>
+              ),
+            }}
+          />
+          {/* <TextField
+            id="Course"
+            placeholder="Course"
+            select
+            variant="outlined"
+            sx={{ width: "150px" }}
+            size="small"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment>
+                  <FilterAltIcon sx={{ color: "#50c878" }} />
+                </InputAdornment>
+              ),
+            }}>
+            <MenuItem value={""} defaultValue={"All"}>
+              All
             </MenuItem>
-          ))}
-        </TextField>
+            {course &&
+              course.map((option, index) => (
+                <MenuItem key={index} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+          </TextField> */}
+        </FormControl>
       </Stack>
+
       <TableContainer>
         <Table sx={{ minWidth: 650, height: "max-content" }} size={dense ? "small" : "medium"} stickyHeader>
           <TableHead>
@@ -107,13 +124,13 @@ function Studentlist({ student, setStudent }) {
                 <TableCell>{student.email}</TableCell>
                 <TableCell>{student.phone}</TableCell>
                 <TableCell>
-                  <IconButton>
+                  <IconButton onClick={() => navigate(`/allstudent/${index}`)}>
                     <RemoveRedEyeIcon color="success" />
                   </IconButton>
-                  <IconButton>
+                  <IconButton onClick={() => navigate(`/edit/${index}`)}>
                     <EditIcon color="secondary" />
                   </IconButton>
-                  <IconButton>
+                  <IconButton onClick={() => handleRemove(index)} key={index}>
                     <DeleteIcon color="error" />
                   </IconButton>
                 </TableCell>

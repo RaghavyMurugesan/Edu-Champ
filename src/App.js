@@ -38,6 +38,9 @@ function App() {
       secondary: {
         main: "#c850a0",
       },
+      error: {
+        main: "#FF3333",
+      },
       neutral: {
         lighter: "#c8509f",
         main: colors.grey[500],

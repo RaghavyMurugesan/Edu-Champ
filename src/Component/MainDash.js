@@ -29,7 +29,7 @@ function MainDash({ student, teacher }) {
   });
   return (
     <>
-      <Typography color="#50c878" variant="h4">
+      <Typography color="#50c878" variant="h4" paddingY={2}>
         Dashboard
       </Typography>
       <Grid container spacing={3}>

@@ -12,50 +12,74 @@ function StudentDetails({ student }) {
   console.log(index);
   return (
     <>
-      <Typography variant="h4" paddingY={2}>
+      <Typography color="#50c878" variant="h4" paddingY={2}>
         Student Details
       </Typography>
-      <Card className=" details-container">
+      <Card sx={{ borderRadius: " 5px", minWidth: "80%", padding: " 25px" }}>
         {" "}
         <Box>
-          <Avatar width="250px" height="250px">
-            {" "}
-            <img src={selectedStudent.profile} alt={selectedStudent.name} className="profile" />
-          </Avatar>
-          <Typography variant="h5">{selectedStudent.name}</Typography>
-          <Typography variant="h6">Student ID: {selectedStudent.id}</Typography>
+          <Avatar
+            src={selectedStudent.profile}
+            alt={selectedStudent.name}
+            sx={{
+              width: 120,
+              height: 120,
+              "&:hover": {
+                border: "5px solid white",
+                outline: "3px solid #50c878",
+                transition: "0.5s ease-in-out",
+                transform: "scale(1.2)",
+              },
+            }}></Avatar>
+
+          <Typography variant="h6" paddingY="1rem">
+            Student ID: {selectedStudent.id}
+          </Typography>
 
           <Stack
             direction={{ sm: "column", md: "row" }}
             spacing={{ xs: 1, sm: 2, md: 4 }}
-            justifyContent="space-evenly"
-            className="info">
-            <Typography variant="body">
-              {" "}
+            justifyContent="space-evenly">
+            <Typography variant="body" component="span">
               Course:
-              <br /> <AutoStoriesIcon color="warning" /> {selectedStudent.course}{" "}
+              <Stack direction="row" spacing={1}>
+                <AutoStoriesIcon color="secondary" />
+                <Typography variant="body1"> {selectedStudent.course}</Typography>
+              </Stack>{" "}
             </Typography>
             <Typography variant="body">
-              {" "}
               Rank:
-              <br /> <WorkspacePremiumIcon color="warning" size="large" /> &nbsp;{selectedStudent.rank}{" "}
+              <Stack direction="row" spacing={1}>
+                <WorkspacePremiumIcon color="secondary" />
+                <Typography variant="body1"> {selectedStudent.rank}</Typography>
+              </Stack>
             </Typography>
             <Typography variant="body">
               {" "}
               Email:
-              <br /> <EmailIcon color="warning" /> &nbsp;
-              {selectedStudent.email}{" "}
+              <Stack direction="row" spacing={1}>
+                <EmailIcon color="secondary" />
+                <Typography variant="body1"> {selectedStudent.email}</Typography>
+              </Stack>
             </Typography>
             <Typography variant="body">
               {" "}
               Phone:
-              <br /> <CallIcon color="warning" /> &nbsp; {selectedStudent.phone}
+              <Stack direction="row" spacing={1}>
+                <CallIcon color="secondary" />
+                <Typography variant="body1"> {selectedStudent.phone}</Typography>
+              </Stack>
             </Typography>
             <Typography variant="body">
               {" "}
               Address:
-              <br /> <ContactMailIcon color="warning" /> &nbsp;{" "}
-              {JSON.parse(JSON.stringify(Object.values(selectedStudent.address)))}
+              <Stack direction="row" spacing={1}>
+                <ContactMailIcon color="secondary" />
+                <Typography variant="body1">
+                  {" "}
+                  {JSON.parse(JSON.stringify(Object.values(selectedStudent.address)))}
+                </Typography>
+              </Stack>
             </Typography>
           </Stack>
         </Box>

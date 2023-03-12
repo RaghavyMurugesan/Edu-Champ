@@ -24,7 +24,7 @@ function Teacherlist({ teacher, setTeacher }) {
 
   return (
     <>
-      <Typography color="#50c878" variant="h4">
+      <Typography color="#50c878" variant="h4" paddingY={2}>
         Teacher List
       </Typography>
       <Container

@@ -50,7 +50,7 @@ function EditStudent({ student, setStudent }) {
   }
   return (
     <>
-      <Typography variant="h4" paddingY={2}>
+      <Typography color="#50c878" variant="h4" paddingY={2}>
         Edit Student
       </Typography>
       <Card padding={1} sx={{ borderRadius: "0.5rem", margin: "1rem" }}>
@@ -80,7 +80,13 @@ function EditStudent({ student, setStudent }) {
                 alignItems: "center",
                 justifyContent: "center",
               }}>
-              <img id="preview-selected-image" alt="Addimage" maxwidth="150px" height="100px" />
+              <img
+                id="preview-selected-image"
+                alt="Addimage"
+                maxwidth="150px"
+                height="100px"
+                onEmptiedCapture={handleChange}
+              />
               <input accept="image/*" id="profile-image" type="file" hidden onChange={handleChange} />
               <label htmlFor="profile-image">
                 <Button component="span">

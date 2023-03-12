@@ -1,7 +1,12 @@
 .image-preview-container img {
-  width: 90%;
+  width: 95%;
   object-fit: cover;
+  padding: 5px;
 }
 .image-preview-container input {
   display: none;
+}
+.error {
+  color: #d32f2f;
+  font-size: 12px;
 }

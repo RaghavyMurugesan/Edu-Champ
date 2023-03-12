@@ -51,7 +51,7 @@ function Studentlist({ student, setStudent }) {
   return (
     <>
       {/* <Paper sx={{ overflow: "auto", padding: "1rem" }}></Paper> */}
-      <Typography color="#50c878" variant="h4">
+      <Typography color="#50c878" variant="h4" paddingY={2}>
         Student List
       </Typography>
       <Stack direction="row" justifyContent="space-between" alignItems="center" padding={1}>

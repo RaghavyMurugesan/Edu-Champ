@@ -236,7 +236,7 @@ function Addstudent({ student, setStudent }) {
                   open={open}
                   autoHideDuration={2000}
                   onClose={handleClose}>
-                  <Alert onClose={handleClose} severity="primary" sx={{ width: "100%" }}>
+                  <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
                     Form Submitted Successfully!
                   </Alert>
                 </Snackbar>

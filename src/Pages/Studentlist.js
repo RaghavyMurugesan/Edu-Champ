@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { TableContainer, Table, TableHead, TableBody, TableRow, TableCell } from "@mui/material";
 import { Stack, TextField, Avatar, IconButton, InputAdornment, MenuItem, Typography } from "@mui/material";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
@@ -12,8 +12,9 @@ import TablePagination from "@mui/material/TablePagination";
 import { useNavigate } from "react-router-dom";
 import { FormControl } from "@mui/material";
 
-function Studentlist({ student, setStudent }) {
+function Studentlist() {
   const navigate = useNavigate();
+  const [student, setStudent] = useState([]);
   const [dense, setDense] = React.useState(true);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -31,6 +32,11 @@ function Studentlist({ student, setStudent }) {
       label: "JavaScript",
     },
   ];
+  useEffect(() => {
+    fetch("https://640ffbdfe1212d9cc92639c8.mockapi.io/student")
+      .then((data) => data.json())
+      .then((stu) => setStudent(stu));
+  }, []);
   const handleChangeDense = (event) => {
     setDense(event.target.checked);
   };
@@ -113,7 +119,7 @@ function Studentlist({ student, setStudent }) {
           </TableHead>
           <TableBody>
             {student.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((student, index) => (
-              <TableRow>
+              <TableRow key={index}>
                 <TableCell>
                   {" "}
                   <Avatar alt={student.name} src={student.profile} align="center" />

@@ -11,7 +11,6 @@ import Studentlist from "./Pages/Studentlist";
 import Teacherlist from "./Pages/Teacherlist";
 import EditStudent from "./Pages/EditStudent";
 import StudentDetails from "./Pages/StudentDetails";
-
 import { useState } from "react";
 import { createTheme, colors, ThemeProvider, Grid } from "@mui/material";
 
@@ -48,6 +47,7 @@ function App() {
       },
     },
   });
+
   return (
     <ThemeProvider theme={theme}>
       <Router>
@@ -87,7 +87,7 @@ function App() {
                 <Route path="/" exact element={<Home />} />
                 <Route path="/dashboard" exact element={<MainDash student={student} teacher={teacher} />} />
                 <Route path="/quickaccess" exact element={<Quick />} />
-                <Route path="/allstudent" exact element={<Studentlist student={student} setStudent={setStudent} />} />
+                <Route path="/allstudent" exact element={<Studentlist />} />
                 <Route
                   path="/allstudent/:index"
                   element={<StudentDetails student={student} setStudent={setStudent} />}

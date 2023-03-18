@@ -11,13 +11,13 @@ import Switch from "@mui/material/Switch";
 import TablePagination from "@mui/material/TablePagination";
 import { useNavigate } from "react-router-dom";
 import { FormControl } from "@mui/material";
-
+import { API } from "./global";
 function Studentlist() {
   const navigate = useNavigate();
   const [student, setStudent] = useState([]);
-  const [dense, setDense] = React.useState(true);
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [dense, setDense] = useState(true);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const course = [
     {
       value: "HTML",
@@ -32,10 +32,14 @@ function Studentlist() {
       label: "JavaScript",
     },
   ];
-  useEffect(() => {
-    fetch("https://640ffbdfe1212d9cc92639c8.mockapi.io/student")
+
+  const getStudents = () => {
+    fetch(`${API}/student`)
       .then((data) => data.json())
       .then((stu) => setStudent(stu));
+  };
+  useEffect(() => {
+    getStudents();
   }, []);
   const handleChangeDense = (event) => {
     setDense(event.target.checked);
@@ -48,12 +52,12 @@ function Studentlist() {
     setPage(0);
   };
 
-  let handleRemove = (index) => {
-    let newList = [...student];
-    newList.splice(index, 1);
-    console.log(index);
-    setStudent(newList);
-  };
+  // let handleRemove = (index) => {
+  //   let newList = [...student];
+  //   newList.splice(index, 1);
+  //   console.log(index);
+  //   setStudent(newList);
+  // };
   return (
     <>
       {/* <Paper sx={{ overflow: "auto", padding: "1rem" }}></Paper> */}
@@ -71,7 +75,7 @@ function Studentlist() {
             variant="standard"
             InputProps={{
               endAdornment: (
-                <InputAdornment>
+                <InputAdornment position="end">
                   <SearchIcon sx={{ color: "#50c878" }} />
                 </InputAdornment>
               ),
@@ -119,7 +123,7 @@ function Studentlist() {
           </TableHead>
           <TableBody>
             {student.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((student, index) => (
-              <TableRow key={index}>
+              <TableRow key={student.id}>
                 <TableCell>
                   {" "}
                   <Avatar alt={student.name} src={student.profile} align="center" />
@@ -130,13 +134,17 @@ function Studentlist() {
                 <TableCell>{student.email}</TableCell>
                 <TableCell>{student.phone}</TableCell>
                 <TableCell>
-                  <IconButton onClick={() => navigate(`/allstudent/${index}`)}>
+                  <IconButton onClick={() => navigate(`/allstudent/${student.id}`)}>
                     <RemoveRedEyeIcon color="success" />
                   </IconButton>
-                  <IconButton onClick={() => navigate(`/edit/${index}`)}>
+                  <IconButton onClick={() => navigate(`/edit/${student.id}`)}>
                     <EditIcon color="secondary" />
                   </IconButton>
-                  <IconButton onClick={() => handleRemove(index)} key={index}>
+                  <IconButton
+                    key={index}
+                    onClick={() => {
+                      fetch(`${API}/student/${student.id}`, { method: "DELETE" }).then(() => getStudents());
+                    }}>
                     <DeleteIcon color="error" />
                   </IconButton>
                 </TableCell>

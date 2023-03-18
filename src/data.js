@@ -163,7 +163,6 @@ export let studentList = [
     course: "JavaScript",
     id: "8",
   },
-
   {
     name: "Meera Krishnan",
     email: "meera@gmail.com",

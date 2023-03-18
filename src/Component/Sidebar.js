@@ -85,6 +85,9 @@ export const Sidebar = (index, item) => {
             <ListItemText primary="Log-Out" />
           </ListItemButton>
         </ListItem>
+        <Typography variant="p" sx={{ display: "flex", justifyContent: "center", fontSize: "10px" }}>
+          Made with ❤️ by Raghavy{" "}
+        </Typography>
       </List>
     </Grid>
   );

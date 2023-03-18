@@ -88,10 +88,7 @@ function App() {
                 <Route path="/dashboard" exact element={<MainDash student={student} teacher={teacher} />} />
                 <Route path="/quickaccess" exact element={<Quick />} />
                 <Route path="/allstudent" exact element={<Studentlist />} />
-                <Route
-                  path="/allstudent/:index"
-                  element={<StudentDetails student={student} setStudent={setStudent} />}
-                />
+                <Route path="/allstudent/:index" element={<StudentDetails />} />
                 <Route path="/edit/:index" element={<EditStudent student={student} setStudent={setStudent} />} />
                 <Route path="/addstudent" exact element={<Addstudent student={student} setStudent={setStudent} />} />
                 <Route path="/allteacher" exact element={<Teacherlist teacher={teacher} setTeacher={setTeacher} />} />

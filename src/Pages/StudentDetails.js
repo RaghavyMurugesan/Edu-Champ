@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Box, Card, Stack, Avatar, Typography } from "@mui/material";
 import AutoStoriesIcon from "@mui/icons-material/AutoStories";
@@ -6,21 +6,33 @@ import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 import EmailIcon from "@mui/icons-material/Email";
 import CallIcon from "@mui/icons-material/Call";
 import ContactMailIcon from "@mui/icons-material/ContactMail";
-function StudentDetails({ student }) {
+import NotFoundPage from "./NotFoundPage";
+import { API } from "./global";
+
+function StudentDetails() {
+  const [student, setStudent] = useState({});
   const { index } = useParams();
-  const selectedStudent = student[index];
-  console.log(index);
+
+  useEffect(() => {
+    fetch(`${API}/student/${index}`, { method: "GET" })
+      .then((data) => data.json())
+      .then((stu) => setStudent(stu));
+  }, []);
+  console.log(student);
+  if (!student) {
+    return <NotFoundPage />;
+  }
   return (
     <>
       <Typography color="#50c878" variant="h4" paddingY={2}>
         Student Details
       </Typography>
       <Card sx={{ borderRadius: " 5px", minWidth: "80%", padding: " 25px" }}>
-        {" "}
+        <Typography variant="h6">{student.name}</Typography>{" "}
         <Box>
           <Avatar
-            src={selectedStudent.profile}
-            alt={selectedStudent.name}
+            src={student.profile}
+            alt={student.name}
             sx={{
               width: 120,
               height: 120,
@@ -33,7 +45,7 @@ function StudentDetails({ student }) {
             }}></Avatar>
 
           <Typography variant="h6" paddingY="1rem">
-            Student ID: {selectedStudent.id}
+            Student ID: {student.id}
           </Typography>
 
           <Stack
@@ -44,14 +56,14 @@ function StudentDetails({ student }) {
               Course:
               <Stack direction="row" spacing={1}>
                 <AutoStoriesIcon color="secondary" />
-                <Typography variant="body1"> {selectedStudent.course}</Typography>
+                <Typography variant="body1"> {student.course}</Typography>
               </Stack>{" "}
             </Typography>
             <Typography variant="body">
               Rank:
               <Stack direction="row" spacing={1}>
                 <WorkspacePremiumIcon color="secondary" />
-                <Typography variant="body1"> {selectedStudent.rank}</Typography>
+                <Typography variant="body1"> {student.rank}</Typography>
               </Stack>
             </Typography>
             <Typography variant="body">
@@ -59,7 +71,7 @@ function StudentDetails({ student }) {
               Email:
               <Stack direction="row" spacing={1}>
                 <EmailIcon color="secondary" />
-                <Typography variant="body1"> {selectedStudent.email}</Typography>
+                <Typography variant="body1"> {student.email}</Typography>
               </Stack>
             </Typography>
             <Typography variant="body">
@@ -67,20 +79,18 @@ function StudentDetails({ student }) {
               Phone:
               <Stack direction="row" spacing={1}>
                 <CallIcon color="secondary" />
-                <Typography variant="body1"> {selectedStudent.phone}</Typography>
+                <Typography variant="body1"> {student.phone}</Typography>
               </Stack>
             </Typography>
-            <Typography variant="body">
+            {/* <Typography variant="body">
               {" "}
               Address:
               <Stack direction="row" spacing={1}>
                 <ContactMailIcon color="secondary" />
-                <Typography variant="body1">
-                  {" "}
-                  {JSON.parse(JSON.stringify(Object.values(selectedStudent.address)))}
-                </Typography>
+                //{" "}
+                <Typography variant="body1"> {JSON.parse(JSON.stringify(Object.values(student.address)))}</Typography>
               </Stack>
-            </Typography>
+            </Typography> */}
           </Stack>
         </Box>
       </Card>

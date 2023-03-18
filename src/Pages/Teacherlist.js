@@ -21,7 +21,12 @@ function Teacherlist({ teacher, setTeacher }) {
       return purple[400];
     }
   };
-
+  let handleRemove = (index) => {
+    let newList = [...teacher];
+    newList.splice(index, 1);
+    console.log(index);
+    setTeacher(newList);
+  };
   return (
     <>
       <Typography color="#50c878" variant="h4" paddingY={2}>
@@ -87,7 +92,7 @@ function Teacherlist({ teacher, setTeacher }) {
               <IconButton>
                 <EditIcon color="secondary" />
               </IconButton>
-              <IconButton>
+              <IconButton onClick={() => handleRemove(index)} key={index}>
                 <DeleteIcon color="error" />
               </IconButton>
             </CardActions>

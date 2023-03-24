@@ -193,6 +193,7 @@ export let teacherList = [
     phone: 7373737373,
     course: "HTML",
     id: "1",
+    experience: 2,
   },
   {
     name: "Kabir Singh",
@@ -202,6 +203,7 @@ export let teacherList = [
     phone: 7575757575,
     course: "CSS",
     id: "2",
+    experience: 2,
   },
   {
     name: "Ishaan Kishan",
@@ -211,6 +213,7 @@ export let teacherList = [
     phone: 7272727272,
     course: "CSS",
     id: "3",
+    experience: 3,
   },
   {
     name: "Jai Shankar",
@@ -220,6 +223,7 @@ export let teacherList = [
     phone: 2828282828,
     course: "CSS",
     id: "4",
+    experience: 1,
   },
   {
     name: "Amar Kishor",
@@ -229,6 +233,7 @@ export let teacherList = [
     phone: 3030303030,
     course: "HTML",
     id: "5",
+    experience: 2,
   },
   {
     name: "Dhuruv Vikram",
@@ -238,6 +243,7 @@ export let teacherList = [
     phone: 4141414141,
     course: "JavaScript",
     id: "6",
+    experience: 1,
   },
   {
     name: "Kannan Kumar",
@@ -248,6 +254,7 @@ export let teacherList = [
 
     course: "JavaScript",
     id: "7",
+    experience: 2,
   },
   {
     name: "Santhiya",
@@ -257,6 +264,7 @@ export let teacherList = [
     phone: 4343434343,
     course: "JavaScript",
     id: "8",
+    experience: 3,
   },
 
   {
@@ -267,6 +275,7 @@ export let teacherList = [
     phone: 3532343536,
     course: "JavaScript",
     id: "9",
+    experience: 4,
   },
   {
     name: "Raghavy ",
@@ -276,5 +285,6 @@ export let teacherList = [
     phone: 3336393336,
     course: "CSS",
     id: "10",
+    experience: 1,
   },
 ];

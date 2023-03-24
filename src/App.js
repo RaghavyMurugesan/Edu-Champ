@@ -11,6 +11,7 @@ import Studentlist from "./Pages/Studentlist";
 import Teacherlist from "./Pages/Teacherlist";
 import EditStudent from "./Pages/EditStudent";
 import StudentDetails from "./Pages/StudentDetails";
+import TeacherDetails from "./Pages/TeacherDetails";
 import { useState } from "react";
 import { createTheme, colors, ThemeProvider, Grid } from "@mui/material";
 
@@ -88,10 +89,11 @@ function App() {
                 <Route path="/dashboard" exact element={<MainDash student={student} teacher={teacher} />} />
                 <Route path="/quickaccess" exact element={<Quick />} />
                 <Route path="/allstudent" exact element={<Studentlist />} />
-                <Route path="/allstudent/:index" element={<StudentDetails />} />
-                <Route path="/edit/:index" element={<EditStudent student={student} setStudent={setStudent} />} />
-                <Route path="/addstudent" exact element={<Addstudent student={student} setStudent={setStudent} />} />
-                <Route path="/allteacher" exact element={<Teacherlist teacher={teacher} setTeacher={setTeacher} />} />
+                <Route path="/student/:index" element={<StudentDetails />} />
+                <Route path="/student/edit/:index" element={<EditStudent />} />
+                <Route path="/addstudent" exact element={<Addstudent />} />
+                <Route path="/allteacher" exact element={<Teacherlist />} />
+                <Route path="/teachers/:index" element={<TeacherDetails />} />
                 <Route path="/addteacher" exact element={<Addteacher />} />
                 <Route element={<Home />} />
               </Routes>

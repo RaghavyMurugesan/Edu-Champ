@@ -1,38 +1,33 @@
 import React, { useState, useEffect } from "react";
+import { Typography, Card, Box, Avatar, Stack } from "@mui/material";
 import { useParams } from "react-router-dom";
-import { Box, Card, Stack, Avatar, Typography } from "@mui/material";
 import AutoStoriesIcon from "@mui/icons-material/AutoStories";
 import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 import EmailIcon from "@mui/icons-material/Email";
 import CallIcon from "@mui/icons-material/Call";
-//import ContactMailIcon from "@mui/icons-material/ContactMail";
-import NotFoundPage from "./NotFoundPage";
+import ContactMailIcon from "@mui/icons-material/ContactMail";
 import { API } from "./global";
 
-function StudentDetails() {
-  const [student, setStudent] = useState({});
+function TeacherDetails() {
+  const [teacher, setTeacher] = useState({});
   const { index } = useParams();
-
+  console.log(index);
   useEffect(() => {
-    fetch(`${API}/student/${index}`, { method: "GET" })
+    fetch(`${API}/teachers/${index}`, { method: "GET" })
       .then((data) => data.json())
-      .then((stu) => setStudent(stu));
+      .then((tea) => setTeacher(tea));
   }, [index]);
-  console.log(student);
-  if (!student) {
-    return <NotFoundPage />;
-  }
   return (
     <>
       <Typography color="#50c878" variant="h4" paddingY={2}>
-        Student Details
+        Teacher Details
       </Typography>
       <Card sx={{ borderRadius: " 5px", minWidth: "80%", padding: " 25px" }}>
-        <Typography variant="h6">{student.name}</Typography>{" "}
+        <Typography variant="h6">{teacher.name}</Typography>{" "}
         <Box>
           <Avatar
-            src={student.profile}
-            alt={student.name}
+            src={teacher.profile}
+            alt={teacher.name}
             sx={{
               width: 120,
               height: 120,
@@ -45,7 +40,7 @@ function StudentDetails() {
             }}></Avatar>
 
           <Typography variant="h6" paddingY="1rem">
-            Student ID: {student.id}
+            Teacher ID: {teacher.id}
           </Typography>
 
           <Stack
@@ -53,42 +48,42 @@ function StudentDetails() {
             spacing={{ xs: 1, sm: 2, md: 4 }}
             justifyContent="space-evenly">
             <Typography variant="body" component="span">
-              Course:
+              Expertise:
               <Stack direction="row" spacing={1}>
-                <AutoStoriesIcon color="secondary" />
-                <Typography variant="body1"> {student.course}</Typography>
+                <AutoStoriesIcon color="warning" />
+                <Typography variant="body1"> {teacher.course}</Typography>
               </Stack>{" "}
             </Typography>
             <Typography variant="body">
-              Rank:
+              Experience:
               <Stack direction="row" spacing={1}>
-                <WorkspacePremiumIcon color="secondary" />
-                <Typography variant="body1"> {student.rank}</Typography>
+                <WorkspacePremiumIcon color="warning" />
+                <Typography variant="body1"> {teacher.experience}</Typography>
               </Stack>
             </Typography>
             <Typography variant="body">
               {" "}
               Email:
               <Stack direction="row" spacing={1}>
-                <EmailIcon color="secondary" />
-                <Typography variant="body1"> {student.email}</Typography>
+                <EmailIcon color="warning" />
+                <Typography variant="body1"> {teacher.email}</Typography>
               </Stack>
             </Typography>
             <Typography variant="body">
               {" "}
               Phone:
               <Stack direction="row" spacing={1}>
-                <CallIcon color="secondary" />
-                <Typography variant="body1"> {student.phone}</Typography>
+                <CallIcon color="warning" />
+                <Typography variant="body1"> {teacher.phone}</Typography>
               </Stack>
             </Typography>
             {/* <Typography variant="body">
               {" "}
               Address:
               <Stack direction="row" spacing={1}>
-                <ContactMailIcon color="secondary" />
+                <ContactMailIcon color="warning" />
                 //{" "}
-                <Typography variant="body1"> {JSON.parse(JSON.stringify(Object.values(student.address)))}</Typography>
+                <Typography variant="body1"> {JSON.parse(JSON.stringify(Object.values(teacher.address)))}</Typography>
               </Stack>
             </Typography> */}
           </Stack>
@@ -98,4 +93,4 @@ function StudentDetails() {
   );
 }
 
-export default StudentDetails;
+export default TeacherDetails;

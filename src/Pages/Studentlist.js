@@ -134,10 +134,10 @@ function Studentlist() {
                 <TableCell>{student.email}</TableCell>
                 <TableCell>{student.phone}</TableCell>
                 <TableCell>
-                  <IconButton onClick={() => navigate(`/allstudent/${student.id}`)}>
+                  <IconButton onClick={() => navigate(`/student/${student.id}`)}>
                     <RemoveRedEyeIcon color="success" />
                   </IconButton>
-                  <IconButton onClick={() => navigate(`/edit/${student.id}`)}>
+                  <IconButton onClick={() => navigate(`/student/edit/${student.id}`)}>
                     <EditIcon color="secondary" />
                   </IconButton>
                   <IconButton

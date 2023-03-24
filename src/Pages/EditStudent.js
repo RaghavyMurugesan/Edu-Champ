@@ -1,20 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TextField, Button } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import { Typography, Grid, Box, Stack, Card } from "@mui/material";
 import PortraitIcon from "@mui/icons-material/Portrait";
-
-function EditStudent({ student, setStudent }) {
+import { API } from "./global";
+import CircularProgress from "@mui/material/CircularProgress";
+import Alert from "@mui/material/Alert";
+import AlertTitle from "@mui/material/AlertTitle";
+function EditStudent() {
+  const [student, setStudent] = useState(null);
   const { index } = useParams();
-  const selectedStudent = student[index];
-  const [name, setName] = useState(selectedStudent.name);
-  const [email, setEmail] = useState(selectedStudent.email);
-  const [phone, setPhone] = useState(selectedStudent.phone);
-  const [rank, setRank] = useState(selectedStudent.rank);
-  const [course, setCourse] = useState(selectedStudent.course);
-  const [address, setAddress] = useState(selectedStudent.address);
-  const [profile, setProfile] = useState(selectedStudent.profile);
-  const navigate = useNavigate();
+  //const selectedStudent = student[index];
+
+  useEffect(() => {
+    fetch(`${API}/student/${index}`, { method: "GET" })
+      .then((data) => data.json())
+      .then((stu) => setStudent(stu));
+  }, []);
+
   // useEffect(() => {
   //   if (index < student.length) {
   //     getData();
@@ -32,16 +35,39 @@ function EditStudent({ student, setStudent }) {
   //   setCourse();
   // };
 
-  let handleEdit = () => {
-    let newData = { name, email, phone, rank, address, course, profile };
-    let newArray = [...student];
-    newArray.splice(index, 1, newData);
-    setStudent(newArray);
-    navigate("/allStudent");
-    console.log(newData);
-  };
+  return student ? (
+    <EditStudentForm student={student} index={index} />
+  ) : (
+    <Alert variant="filled" severity="success">
+      <CircularProgress color="primary" />
+      <AlertTitle>Fetching Data</AlertTitle>
+    </Alert>
+  );
+}
+
+export default EditStudent;
+
+export function EditStudentForm({ student, setStudent, index }) {
+  const [name, setName] = useState(student.name);
+  const [email, setEmail] = useState(student.email);
+  const [phone, setPhone] = useState(student.phone);
+  const [rank, setRank] = useState(student.rank);
+  const [course, setCourse] = useState(student.course);
+  const [address, setAddress] = useState(student.address);
+  const [profile, setProfile] = useState(student.profile);
+  const navigate = useNavigate();
+  console.log(index);
+  // let handleEdit = () => {
+  //   let newData = { name, email, phone, rank, address, course, profile };
+  //   let newArray = [...student];
+  //   newArray.splice(index, 1, newData);
+  //   setStudent(newArray);
+  //   navigate("/allStudent");
+  //   console.log(student);
+  // };
+
   function handleChange(e) {
-    console.log(e.target.files);
+    console.log(e);
     const imageSrc = URL.createObjectURL(e.target.files[0]);
     const imagePreviewElement = document.querySelector("#preview-selected-image");
     imagePreviewElement.src = imageSrc;
@@ -80,13 +106,7 @@ function EditStudent({ student, setStudent }) {
                 alignItems: "center",
                 justifyContent: "center",
               }}>
-              <img
-                id="preview-selected-image"
-                alt="Addimage"
-                maxwidth="150px"
-                height="100px"
-                onEmptiedCapture={handleChange}
-              />
+              <img id="preview-selected-image" alt="Addimage" maxwidth="150px" height="100px" />
               <input accept="image/*" id="profile-image" type="file" hidden onChange={handleChange} />
               <label htmlFor="profile-image">
                 <Button component="span">
@@ -143,7 +163,7 @@ function EditStudent({ student, setStudent }) {
                 fullWidth
                 placeholder="HTML"
                 label="Course"
-                defaultValue={selectedStudent.course}
+                defaultValue={course}
                 required
                 onChange={(event) => setCourse(event.target.value)}>
                 Course
@@ -155,9 +175,32 @@ function EditStudent({ student, setStudent }) {
                 multiline
                 rows={4}
                 required
-                defaultValue={JSON.parse(JSON.stringify(Object.values(selectedStudent.address)))}
+                defaultValue={JSON.parse(JSON.stringify(Object.values(address)))}
                 onChange={(event) => setAddress(event.target.value)}></TextField>
-              <Button onClick={handleEdit}>Submit</Button>
+              <Button
+                onClick={() => {
+                  const updatedStudent = {
+                    name: name,
+                    email: email,
+                    phone: phone,
+                    rank: rank,
+                    course: course,
+                    address: address,
+                    profile: profile,
+                  };
+                  fetch(`${API}/student/${index}`, {
+                    method: "PUT",
+                    body: JSON.stringify(updatedStudent),
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                  })
+                    .then((data) => data.json())
+                    .then(() => navigate("/allstudent"))
+                    .catch((error) => console.error("Error:", error));
+                }}>
+                Submit
+              </Button>
             </Stack>
           </Grid>
         </Grid>
@@ -165,5 +208,3 @@ function EditStudent({ student, setStudent }) {
     </>
   );
 }
-
-export default EditStudent;

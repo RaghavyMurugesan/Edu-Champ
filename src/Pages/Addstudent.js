@@ -6,6 +6,7 @@ import PortraitIcon from "@mui/icons-material/Portrait";
 import { useFormik } from "formik";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
+import { API } from "./global";
 
 const formValidationSchema = yup.object({
   name: yup.string("Enter your Name").min(3, "Name must be atleast 3 Characters").required("Required!"),
@@ -23,7 +24,7 @@ const formValidationSchema = yup.object({
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
-function Addstudent({ student, setStudent }) {
+function Addstudent() {
   const [open, setOpen] = useState(false);
   const [profile, setProfile] = useState();
   const navigate = useNavigate();
@@ -39,14 +40,20 @@ function Addstudent({ student, setStudent }) {
     },
     validationSchema: formValidationSchema,
     onSubmit: (values) => {
-      console.log(open);
-      setStudent([...student, values]);
-      setOpen(true);
-      setTimeout(() => {
-        return navigate("/allStudent");
-      }, 3000);
+      console.log(values);
+      // setStudent([...student, values]);
+      //1.POST 2.New data on the body 3.in json format
+      fetch(`${API}/student`, {
+        method: "POST",
+        body: JSON.stringify(values),
+        headers: { "Content-Type": "application/json" },
+      })
+        .then((data) => data.json(), setOpen(true))
+        .then(() => navigate("/allStudent"));
 
-      console.log(open);
+      // setTimeout(() => {
+      //   return navigate("/allStudent");
+      // }, 3000);
     },
   });
 
@@ -180,7 +187,7 @@ function Addstudent({ student, setStudent }) {
             </Grid>
 
             <Grid item xs={11} sm={10} md={4}>
-              <Stack spacing={2}>
+              <Stack spacing={2} alignItems="center">
                 <TextField
                   fullWidth
                   placeholder="HTML"

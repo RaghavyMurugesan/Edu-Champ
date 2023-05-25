@@ -4,15 +4,30 @@ import { Typography, Container } from "@mui/material";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { IconButton, Card, CardMedia, CardContent, CardActions } from "@mui/material";
+import {
+  Button,
+  InputAdornment,
+  IconButton,
+  TextField,
+  Card,
+  CardMedia,
+  CardContent,
+  CardActions,
+  Stack,
+} from "@mui/material";
 import { blue, yellow, deepOrange, purple } from "@mui/material/colors";
 import { API } from "./global";
 import { useNavigate } from "react-router-dom";
+import SearchIcon from "@mui/icons-material/Search";
+import AddIcon from "@mui/icons-material/Add";
 
 function Teacherlist() {
   const navigate = useNavigate();
 
   const [teacher, setTeacher] = useState([]);
+  const [searchInput, setSearchInput] = useState("");
+  const [searchParam] = useState(["name", "course"]);
+
   const avatarBgColor = (teacher) => {
     if (teacher.course === "HTML") {
       return deepOrange[400];
@@ -41,19 +56,56 @@ function Teacherlist() {
   //   console.log(index);
   //   setTeacher(newList);
   // };
+  function search(teacher) {
+    return teacher.filter((item) => {
+      return searchParam.some((newItem) => {
+        return item[newItem].toString().toLowerCase().indexOf(searchInput.toLowerCase()) > -1;
+      });
+    });
+  }
   return (
     <>
       <Typography color="#50c878" variant="h4" paddingY={2}>
         Teacher List
       </Typography>
+      <Stack
+        direction={{ xs: "column", sm: "row" }}
+        justifyContent="space-between"
+        alignItems="center"
+        paddingX={3}
+        paddingY={3}
+        useFlexGap>
+        <TextField
+          type="search"
+          id="input-with-icon-textfield"
+          size="small"
+          color="success"
+          placeholder="Search by Name or Course"
+          sx={{ width: "250px" }}
+          variant="standard"
+          value={searchInput}
+          onChange={(e) => setSearchInput(e.target.value)}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <SearchIcon sx={{ color: "#50c878" }} />
+              </InputAdornment>
+            ),
+          }}
+        />
+        <Button variant="contained" color="primary" startIcon={<AddIcon />} onClick={() => navigate(`/addteacher`)}>
+          <Typography>Add Teacher</Typography>
+        </Button>
+      </Stack>
+
       <Container
         sx={{ display: "flex", flexDirection: "row", flexWrap: "wrap", justifyContent: "space-evenly", gap: "2rem" }}>
-        {teacher.map((teacher, index) => (
+        {search(teacher).map((teacher, index) => (
           <Card
             key={index}
             sx={{
               textAlign: "center",
-              width: "250px",
+              width: "200px",
               maxWidth: "300px",
               padding: "30px 0 0",
               backgroundColor: "#f7f5ec",
@@ -90,7 +142,7 @@ function Teacherlist() {
             />
 
             <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
+              <Typography gutterBottom variant="h6" component="div">
                 {teacher.name}
               </Typography>
               <Typography variant="body2" color="text.secondary">
@@ -101,7 +153,7 @@ function Teacherlist() {
               <IconButton onClick={() => navigate(`/teachers/${teacher.id}`)}>
                 <RemoveRedEyeIcon color="primary" />
               </IconButton>
-              <IconButton>
+              <IconButton onClick={() => navigate(`/teachers/edit/${teacher.id}`)}>
                 <EditIcon color="secondary" />
               </IconButton>
               <IconButton

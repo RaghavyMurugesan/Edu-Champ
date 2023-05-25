@@ -10,14 +10,14 @@ import Addteacher from "./Pages/Addteacher";
 import Studentlist from "./Pages/Studentlist";
 import Teacherlist from "./Pages/Teacherlist";
 import EditStudent from "./Pages/EditStudent";
+import EditTeacher from "./Pages/EditTeacher";
 import StudentDetails from "./Pages/StudentDetails";
 import TeacherDetails from "./Pages/TeacherDetails";
-import { useState } from "react";
 import { createTheme, colors, ThemeProvider, Grid } from "@mui/material";
 
 function App() {
-  const [student, setStudent] = useState(studentList);
-  const [teacher, setTeacher] = useState(teacherList);
+  //const [student, setStudent] = useState(studentList);
+  //const [teacher, setTeacher] = useState(teacherList);
 
   const theme = createTheme({
     typography: {
@@ -86,7 +86,7 @@ function App() {
               }}>
               <Routes>
                 <Route path="/" exact element={<Home />} />
-                <Route path="/dashboard" exact element={<MainDash student={student} teacher={teacher} />} />
+                <Route path="/dashboard" exact element={<MainDash />} />
                 <Route path="/quickaccess" exact element={<Quick />} />
                 <Route path="/allstudent" exact element={<Studentlist />} />
                 <Route path="/student/:index" element={<StudentDetails />} />
@@ -94,6 +94,7 @@ function App() {
                 <Route path="/addstudent" exact element={<Addstudent />} />
                 <Route path="/allteacher" exact element={<Teacherlist />} />
                 <Route path="/teachers/:index" element={<TeacherDetails />} />
+                <Route path="/teachers/edit/:index" element={<EditTeacher />} />
                 <Route path="/addteacher" exact element={<Addteacher />} />
                 <Route element={<Home />} />
               </Routes>

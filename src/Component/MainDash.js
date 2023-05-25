@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Typography, Container, Grid, Card } from "@mui/material";
 import CodeIcon from "@mui/icons-material/Code";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
@@ -7,7 +7,29 @@ import HtmlIcon from "@mui/icons-material/Html";
 import JavascriptIcon from "@mui/icons-material/Javascript";
 import Groups3Icon from "@mui/icons-material/Groups3";
 import CssIcon from "@mui/icons-material/Css";
-function MainDash({ student, teacher }) {
+import { API } from "../Pages/global";
+
+function MainDash() {
+  const [student, setStudent] = useState([]);
+  const [teacher, setTeacher] = useState([]);
+
+  const fetchStudentInfo = () => {
+    return fetch(`${API}/student`)
+      .then((res) => res.json())
+      .then((d) => setStudent(d));
+  };
+  useEffect(() => {
+    fetchStudentInfo();
+  }, []);
+  const fetchTeacherInfo = () => {
+    return fetch(`${API}/teachers`)
+      .then((res) => res.json())
+      .then((d) => setTeacher(d));
+  };
+  useEffect(() => {
+    fetchTeacherInfo();
+  }, []);
+
   var newHTML = student.filter(function (el) {
     return el.course === "HTML";
   });
